@@ -53,6 +53,21 @@ CREATE TABLE "Matiere" (
 		PRIMARY KEY(id)
 );
 
+CREATE TABLE "Formation_Matiere" (
+	id_formation INTEGER NOT NULL,
+	id_matiere INTEGER NOT NULL,
+
+	CONSTRAINT pk_formation_matiere
+		PRIMARY KEY(id_formation, id_matiere),
+
+	CONSTRAINT fk_formation
+		FOREIGN KEY(id_formation) REFERENCES Formation(id),
+
+	CONSTRAINT fk_matiere
+		FOREIGN KEY(id_matiere) REFERENCES Matiere(id)
+);
+
+
 CREATE TABLE "Salle" (
 	nom VARCHAR(50) NOT NULL,
 	capacite INT 
