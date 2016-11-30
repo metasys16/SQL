@@ -1,17 +1,24 @@
 CREATE TABLE "Etudiant" (
+	id INTEGER UNIQUE NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	prenom VARCHAR(50) NOT NULL,
-	mail VARCHAR(50) NOT NULL	
+	mail VARCHAR(50) UNIQUE NOT NULL,
+	id_promotion INTEGER NOT NULL,	
+	
+	CONSTRAINT pk_etudiant
+		PRIMARY KEY(id),
 
-	PRIMARY KEY(mail)
+	CONSTRAINT fk_etudiant_promotion
+		FOREIGN KEY(id_promotion) REFERENCES Promotion(id)
 );
 
 CREATE TABLE "Promotion" (
+	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	date_debut DATETIME,
 	date_fin DATETIME
 
-	PRIMARY KEY(nom)
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE "Formateur" (
