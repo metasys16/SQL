@@ -16,9 +16,14 @@ CREATE TABLE "Promotion" (
 	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	date_debut DATETIME,
-	date_fin DATETIME
+	date_fin DATETIME,
+	id_formation INTEGER NOT NULL,	
 
-	PRIMARY KEY(id)
+	CONSTRAINT pk_promotion
+		PRIMARY KEY(id),
+
+	CONSTRAINT fk_promotion_formation
+		FOREIGN KEY(id_formation) REFERENCES Formation(id)
 );
 
 CREATE TABLE "Formateur" (
@@ -27,20 +32,25 @@ CREATE TABLE "Formateur" (
 	mail VARCHAR(50) NOT NULL,
 	tel CHAR(10)
 
-	PRIMARY KEY(mail,tel)
+	CONSTRAINT pk_formateur
+		PRIMARY KEY(nom, mail)
 );
 
 CREATE TABLE "Formation" (
+	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	nb_heures_total FLOAT NOT NULL
 
-	PRIMARY KEY(nom)
+	CONSTRAINT pk_formation
+		PRIMARY KEY(id)
 );
 
 CREATE TABLE "Matiere" (
+	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL
 
-	PRIMARY KEY(nom)
+	CONSTRAINT pk_matiere
+		PRIMARY KEY(id)
 );
 
 CREATE TABLE "Salle" (
@@ -54,8 +64,9 @@ CREATE TABLE "Session" (
 	id INTEGER NOT NULL,
 	date_debut DATETIME,
 	date_fin DATETIME
-	
-	PRIMARY KEY(id)
+
+	CONSTRAINT pk_session	
+		PRIMARY KEY(id)
 );
 
 CREATE TABLE "EmploiDuTemps" (
@@ -63,7 +74,8 @@ CREATE TABLE "EmploiDuTemps" (
 	date_debut DATETIME,
 	date_fin DATETIME
 
-	PRIMARY KEY(id)
+	CONSTRAINT pk_EmploiDuTemps
+		PRIMARY KEY(id)
 );
 
 --CREATE TABLE "Absence" ();
