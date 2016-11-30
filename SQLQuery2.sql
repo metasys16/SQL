@@ -27,13 +27,14 @@ CREATE TABLE "Promotion" (
 );
 
 CREATE TABLE "Formateur" (
+	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	prenom VARCHAR(50) NOT NULL,
 	mail VARCHAR(50) NOT NULL,
 	tel CHAR(10)
 
 	CONSTRAINT pk_formateur
-		PRIMARY KEY(nom, mail)
+		PRIMARY KEY(id)
 );
 
 CREATE TABLE "Formation" (
@@ -69,18 +70,19 @@ CREATE TABLE "Formation_matiere" (
 
 
 CREATE TABLE "Salle" (
+	id INTEGER NOT NULL,
 	nom VARCHAR(50) NOT NULL,
 	capacite INT 
 
-	PRIMARY KEY(nom)
+	PRIMARY KEY(id)
 );
 
 CREATE TABLE "Session" (
 	id INTEGER NOT NULL,
 	date_debut DATETIME,
 	date_fin DATETIME,
-	nom_salle VARCHAR(50) NOT NULL,
-	nom_formateur VARCHAR(50) NOT NULL,
+	id_salle INTEGER NOT NULL,
+	id_formateur INTEGER NOT NULL,
 	id_promotion INTEGER NOT NULL,
 	id_matiere INTEGER NOT NULL
 
@@ -88,10 +90,10 @@ CREATE TABLE "Session" (
 		PRIMARY KEY(id)
 
 	CONSTRAINT fk_salle
-		FOREIGN KEY(nom_salle) REFERENCES Salle(nom),
+		FOREIGN KEY(id_salle) REFERENCES Salle(id),
 
 	CONSTRAINT fk_formateur
-		FOREIGN KEY(nom_formateur) REFERENCES Formateur(nom),
+		FOREIGN KEY(id_formateur) REFERENCES Formateur(id),
 
 	CONSTRAINT fk_promotion
 		FOREIGN KEY(id_promotion) REFERENCES Promotion(id),
