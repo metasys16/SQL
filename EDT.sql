@@ -90,9 +90,3 @@ CREATE TABLE absence (
 		FOREIGN KEY (id_cours) REFERENCES cours(id)
 	
 );
-
-CREATE TABLE emploiDuTemps (
-	id INTEGER IDENTITY PRIMARY KEY NOT NULL,
-	date_debut DATE,
-	date_fin DATE
-);
