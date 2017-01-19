@@ -22,9 +22,9 @@ FROM SalesLT.Customer
 WHERE TotalDue > '100000'
 
 --6. On appelle "Commande unitaire" une commande ne contenant qu'un seul objet. Donner les SalesOrderID et les UnitPrice de chaque commande unitaire
-SELECT DISTINCT SalesOrderID, SUM(OrderQty)
+SELECT DISTINCT SalesOrderID, UnitPrice
 FROM SalesLT.SalesOrderDetail
-GROUP BY SalesOrderID
+GROUP BY SalesOrderID, UnitPrice
 HAVING SUM(OrderQty) = 1
 
 --7. Où vont les chaussettes de courses ? Donner la liste des noms des produits 
@@ -38,6 +38,17 @@ FROM SalesLT.ProductModel
 WHERE SalesLT.ProductModel.Name = 'Racing Socks'
 
 --8. Donner la description dans la culture 'fr' du produit avec le ProductId 736
+SELECT Description
+FROM SalesLT.Product
+	INNER JOIN SalesLT.ProductModel ON SalesLT.ProductModel.ProductModelID = SalesLT.Product.ProductModelID
+	INNER JOIN SalesLT.ProductModelProductDescription ON SalesLT.ProductModelProductDescription.ProductModelID = SalesLT.ProductModel.ProductModelID
+	INNER JOIN SalesLT.ProductDescription ON SalesLT.ProductDescription.ProductDescriptionID = SalesLT.ProductModelProductDescription.ProductDescriptionID
+WHERE ProductID = '736' AND Culture = 'fr'
 
---9. Utiliser la valeur de SubTotal de SaleOrderHeader pour classer les commandes par valeurs décroissante. Pour chaque commande indiquer le CompanyName, le SubTotal et le poid total de la commande
+--9. Utiliser la valeur de SubTotal de SaleOrderHeader pour classer les commandes par valeurs décroissante. 
+--   Pour chaque commande indiquer le CompanyName, le SubTotal et le poid total de la commande
+SELECT SubTotal
+FROM SalesLT.SalesOrderHeader
+ORDER BY SubTotal DESC
+
 --10. Combien de produits de la catégorie 'Cranksets' ont été vendu à des adresses à Londres ?
